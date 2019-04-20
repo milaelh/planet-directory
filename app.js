@@ -65,15 +65,50 @@ const planets = [
   },
 ];
 
-// =============================================================
-//   WRITE YOUR CODE BELOW
-// =============================================================
-
 // 1: Create a 'Planet' component that renders a planet card
 
+const Planet = (props) => {
+  return (
+    <div className="card">
+        <div>
+          <img src={ props.url } alt={ props.name } />
+        </div>
+        <h2>{ props.name }</h2>
+        <p>{ props.desc }</p>
+        <h3>Planet Profile</h3>
+        <ul>
+          <li><strong>Diameter:</strong>{ props.diameter }</li>
+          <li><strong>Moons:</strong> { props.moons }</li>
+        </ul>
+    </div>
+  );
+}
 
 // 2: Create a container component that iterates over the planets array 
 //    and renders a 'Planet' component for each object in the array 
 
+const App = (props) => {
+  return(
+    <div className="container">
+      {/* Start Planet Cards */}
+      {props.allPlanets.map( planet =>
+        <Planet 
+          key= { planet.id.toString() }
+          name={ planet.name }
+          url={ planet.url }
+          diameter={ planet.diameter }
+          moons={ planet.moons }
+          desc={ planet.desc }
+
+        />
+      )}
+    </div>
+  );
+}
 
 // 3: Render the container component to the DOM
+
+ReactDOM.render(
+  <App allPlanets={planets} />,
+  document.getElementById('root')
+);
